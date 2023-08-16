@@ -1,0 +1,4 @@
+[submodule "i18n"]
+	path = i18n
+	url = https://github.com/mozilla-l10n/mozilla-vpn-client-l10n.git
+	branch = main
