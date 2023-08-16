@@ -12,10 +12,11 @@ find_program(PYTHON_EXECUTABLE NAMES python3 python)
 find_package(Qt6 REQUIRED COMPONENTS Core Qml)
 
 ## Create the addons target.
-include(${CMAKE_CURRENT_SOURCE_DIR}/../scripts/cmake/addons.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/scripts/addons.cmake)
 add_addon_target(addons
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    I18N_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../src/apps/vpn/translations/i18n
+    ## FIXME: Translations?
+    ##    I18N_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../src/apps/vpn/translations/i18n
 )
 
 # If this is the top level project, build and install the addons by default.
