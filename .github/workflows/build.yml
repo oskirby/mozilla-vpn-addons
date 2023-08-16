@@ -29,9 +29,11 @@ jobs:
           cmake -S $(pwd) -B build-addons -GNinja
           cmake --build build-addons
       
-      - name: Addons
+      - name: Upload addons
         uses: actions/upload-artifact@v3
-        path: |
-          build-addons/manifest.json
-          build-addons/*.rcc
-          build-addons/*.ts
+        with:
+          name: Addons
+          path: |
+            build-addons/manifest.json
+            build-addons/*.rcc
+            build-addons/*.ts
