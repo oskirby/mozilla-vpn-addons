@@ -1,0 +1,37 @@
+name: Functional tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_addons:
+    name: Build Addons
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-l10n-tools
+      
+      - name: Compile addons
+        shell: bash
+        run: |
+          mkdir -p build-addons
+          cmake -S $(pwd) -B build-addons -GNinja
+          cmake --build build-addons
+      
+      - name: Addons
+        uses: actions/upload-artifact@v3
+        path: |
+          build-addons/manifest.json
+          build-addons/*.rcc
+          build-addons/*.ts
