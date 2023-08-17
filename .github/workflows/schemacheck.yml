@@ -8,7 +8,8 @@ on:
       - main
 
 jobs:
-  build_addons:
+  check_schema:
+    name: Check schema
     runs-on: ubuntu-22.04
     steps:
       - name: Clone repository
@@ -23,7 +24,7 @@ jobs:
         shell: bash
         run: |
           JOB_EXIT_CODE=0
-          for manifest in $(find . -name manifest.json | sort); do
+          for manifest in $(find . -name manifest.json -printf '%P\n' | sort); do
             echo -n "Checking $(dirname ${manifest}): "
             check-jsonschema --schemafile ./scripts/schema/addon.json $manifest || JOB_EXIT_CODE=$?
           done
