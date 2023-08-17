@@ -1,4 +1,4 @@
-name: Check schema
+name: Validate addons
 on:
   push:
     branches:
