@@ -345,7 +345,7 @@ if not os.path.isdir(args.dest):
     exit(f"`{args.dest}` is not a directory")
 
 script_path = os.path.dirname(os.path.realpath(__file__))
-schema_file = os.path.join(script_path, "schema.json")
+schema_file = os.path.join(script_path, "schema/addon.json")
 if not os.path.isfile(schema_file):
     exit(f"The JSONSchema {schema_file} does not exist")
 

@@ -1,0 +1,31 @@
+name: Validate addons
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_schema:
+    name: Check schema
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install dependencies
+        run: pip3 install check-jsonschema
+      
+      - name: Validate addons
+        shell: bash
+        run: |
+          JOB_EXIT_CODE=0
+          for manifest in $(find . -name manifest.json -printf '%P\n' | sort); do
+            echo -n "Checking $(dirname ${manifest}): "
+            check-jsonschema --schemafile ./scripts/schema/addon.json $manifest || JOB_EXIT_CODE=$?
+          done
+          exit $JOB_EXIT_CODE
